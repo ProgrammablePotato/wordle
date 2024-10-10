@@ -8,13 +8,14 @@ import java.io.FileNotFoundException;
 
 public class GameMain {
     private int len;
-    private Random rnd = new Random();
-    private Character[] word = new Character[len];
+    private Character[] word;
     private List<Character[]> words = new ArrayList<>();
 
     public GameMain(int len) {
+        Random rnd = new Random();
         this.len = len;
         this.words = ReadFile(len);
+        //System.out.println(words.size());
         if (this.words == null) {
             this.word[0] = '0';
         }
@@ -25,6 +26,7 @@ public class GameMain {
     }
 
     public void NewWord() {
+        Random rnd = new Random();
         int c = rnd.nextInt(words.size());
         this.word = words.get(c);
     }
@@ -40,12 +42,12 @@ public class GameMain {
         Arrays.fill(matches, 0);
         
         for (int x = 0; x < len; x++) {
-            if (inWord[x].equals(word[x])) {
+            if (Character.compare(inWord[x],word[x]) == 0) {
                 matches[x] = 2;
             }
             else {
                 for (int y = 0; y < len; y++) {
-                    if (inWord[y].equals(word[x])) {
+                    if (Character.compare(inWord[y],word[x]) == 0) {
                         matches[x] = 1;
                         break;
                     }
