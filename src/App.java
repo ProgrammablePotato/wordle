@@ -74,16 +74,18 @@ public class App {
             
             while (true) {
                 choice = sc.nextLine();
-                if ((choice.strip()).toLowerCase() == "" ||( choice.strip()).toLowerCase() == "y") {
+                choice = choice.strip();
+                choice = choice.toLowerCase();
+                if (choice == "" || choice == "y") {
                     win = 1;
                     break;
                 }
-                else if ((choice.strip()).toLowerCase() == "n") {
+                else if (choice == "n") {
                     win = 0;
                     break;
                 }
                 else {
-                    System.out.println("Not recognized vlaue, select [Y]es or [N]o: ");
+                    System.out.println("Not recognized value, select [Y]es or [N]o: ");
                     continue;
                 }
             }
