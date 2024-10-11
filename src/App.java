@@ -74,11 +74,11 @@ public class App {
             
             while (true) {
                 choice = sc.nextLine();
-                if (choice.strip().toLowerCase() == "" || choice.strip().toLowerCase() == "y") {
+                if ((choice.strip()).toLowerCase() == "" ||( choice.strip()).toLowerCase() == "y") {
                     win = 1;
                     break;
                 }
-                else if (choice.strip().toLowerCase() == "n") {
+                else if ((choice.strip()).toLowerCase() == "n") {
                     win = 0;
                     break;
                 }

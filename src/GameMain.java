@@ -7,26 +7,32 @@ import java.util.Scanner;
 import java.io.FileNotFoundException;
 
 public class GameMain {
+    private Random rnd;
     private int len;
     private Character[] word;
     private List<Character[]> words = new ArrayList<>();
 
     public GameMain(int len) {
-        Random rnd = new Random();
+        rnd = new Random();
         this.len = len;
         this.words = ReadFile(len);
+        System.out.println(words.size());
         //System.out.println(words.size());
+        this.word = new Character[len];
         if (this.words == null) {
             this.word[0] = '0';
         }
         else {
             int c = rnd.nextInt(words.size());
+            System.out.println(c);
             this.word = words.get(c);
+            for (Character character : word) {
+                System.out.print(character);
+            }
         }
     }
 
     public void NewWord() {
-        Random rnd = new Random();
         int c = rnd.nextInt(words.size());
         this.word = words.get(c);
     }
