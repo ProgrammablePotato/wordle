@@ -39,6 +39,7 @@ public class App {
             System.out.println("Guess the word now:");
             for (int x = 0; x < 6; x++) {
                 win = 1;
+                System.out.print("Choice:  ");
                 while (true) {
                     choice = sc.nextLine().strip();
                     if (choice.length() != l) {
@@ -47,6 +48,7 @@ public class App {
                     }
                     break;
                 }
+                System.out.print("Matches: ");
                 char[] tmp_word_char = choice.toCharArray();
                 for (int y = 0; y < l; y++) {
                     word_char[y] = (Character)tmp_word_char[y];
@@ -70,33 +72,29 @@ public class App {
             if (win == 0) {
                 System.out.printf("%s%sSorry, you lost! The word was %s.\n",bgs[0],fgs[0],gm.GimmeDaWord());
             }
-            System.out.println("Would you like to play again? [Y/N] ");
+            System.out.print("Would you like to play again? [Y/N] ");
             
             while (true) {
                 choice = sc.nextLine();
                 choice = choice.strip();
                 choice = choice.toLowerCase();
-                if (choice == "" || choice == "y") {
+                //System.out.println(choice);
+                if (choice.equals("") || choice.equals("y")) {
                     win = 1;
                     break;
                 }
-                else if (choice == "n") {
+                else if (choice.equals("n")) {
                     win = 0;
                     break;
-                }
-                else {
-                    System.out.println("Not recognized value, select [Y]es or [N]o: ");
+                } else {
+                    System.out.print("Not recognized value, select [Y]es or [N]o: ");
                     continue;
                 }
             }
             if (win == 1) {
                 gm.NewWord();
+                System.out.flush();
                 continue;
-            }
-            else {
-                break;
-            }
-        }
-        sc.close();
-    }
+            } else {break;}
+        } sc.close();}
 }
