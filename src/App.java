@@ -46,13 +46,18 @@ public class App {
                         System.out.printf("Please only enter %d letter long letters: ",l);
                         continue;
                     }
+                    char[] tmp_word_char = choice.toCharArray();
+                    for (int y = 0; y < l; y++) {
+                        word_char[y] = (Character)tmp_word_char[y];
+                    }
+                    if (!gm.WordExists(word_char)) {
+                        System.out.println("This word doesn't exist!");
+                        continue;
+                    }
                     break;
                 }
                 System.out.print("Matches: ");
-                char[] tmp_word_char = choice.toCharArray();
-                for (int y = 0; y < l; y++) {
-                    word_char[y] = (Character)tmp_word_char[y];
-                }
+                
                 word_data = gm.ReturnWordData(word_char);
                 for (int z = 0; z < l; z++) {
                     if (word_data[z] == 2) {
@@ -70,7 +75,7 @@ public class App {
                 }
             }
             if (win == 0) {
-                System.out.printf("%s%sSorry, you lost! The word was %s.\n",bgs[0],fgs[0],gm.GimmeDaWord());
+                System.out.printf("%s%sSorry, you lost! The word was %s.\n",bgs[0],fgs[0],gm.ReturnSolution());
             }
             System.out.print("Would you like to play again? [Y/N] ");
             
