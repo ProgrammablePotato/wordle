@@ -2,7 +2,21 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class App {
+    private static void PrintAlphabet(int[] letters_available) {
+        System.out.println();
+        for (int x = 0; x < letters_available.length; x++) {
+            if (letters_available[x] == 0) {
+                System.out.print("\033[42m\033[30m"+(char)(x+97));
+            }
+            else {
+                System.out.print("\033[41m\033[30m"+(char)(x+97));
+            }
+        }
+        System.out.printf("\033[40m\033[37m\n");
+    }
     public static void main(String[] args) throws Exception {
+        int[] letters_available = new int[26];
+        Arrays.fill(letters_available, 0);
         String[] bgs = {"\033[40m","\033[43m","\033[42m"}; //black, yellow, green
         String[] fgs = {"\033[37m","\033[30m","\033[30m"}; //white, black, black
         GameMain gm;
@@ -12,8 +26,7 @@ public class App {
         String choice;
         Character[] word_char;
         int[] word_data;
-        
-        
+
         System.out.print("Please enter the length of words you want to play with (5-5): ");
         while (true) {
             choice = sc.nextLine().strip();
@@ -41,7 +54,7 @@ public class App {
                 win = 1;
                 System.out.print("Choice:  ");
                 while (true) {
-                    choice = sc.nextLine().strip();
+                    choice = sc.nextLine().strip().toLowerCase();
                     if (choice.length() != l) {
                         System.out.printf("Please only enter %d letter long letters: ",l);
                         continue;
@@ -51,7 +64,7 @@ public class App {
                         word_char[y] = (Character)tmp_word_char[y];
                     }
                     if (!gm.WordExists(word_char)) {
-                        System.out.println("This word doesn't exist!");
+                        System.out.print("This word doesn't exist!\nChoice:  ");
                         continue;
                     }
                     break;
@@ -66,9 +79,13 @@ public class App {
                     else {
                         win = 0;
                         System.out.printf("%s%s%c",bgs[word_data[z]],fgs[word_data[z]],word_char[z]);
+                        if (word_data[z] == 0) {
+                            letters_available[(int)word_char[z]-97] = 1;
+                        }
                     }
                 }
-                System.out.printf("%s%s\n",bgs[0],fgs[0]);
+                PrintAlphabet(letters_available);
+                
                 if (win == 1) {
                     System.out.printf("%s%sYou won!\n",bgs[0],fgs[0]);
                     break;
@@ -81,8 +98,7 @@ public class App {
             
             while (true) {
                 choice = sc.nextLine();
-                choice = choice.strip();
-                choice = choice.toLowerCase();
+                choice = choice.strip().toLowerCase();
                 //System.out.println(choice);
                 if (choice.equals("") || choice.equals("y")) {
                     win = 1;
@@ -98,6 +114,7 @@ public class App {
             }
             if (win == 1) {
                 gm.NewWord();
+                Arrays.fill(letters_available, 0);
                 System.out.flush();
                 continue;
             } else {break;}

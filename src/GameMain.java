@@ -8,13 +8,12 @@ import java.io.FileNotFoundException;
 
 public class GameMain {
     private HashMap<Character, Integer> alphabet = new HashMap<>();
-    private Random rnd;
+    private Random rnd = new Random();
     private int len;
     private Character[] word;
     private ArrayList<Character[]> words = new ArrayList<>();
 
     public GameMain(int len) {
-        rnd = new Random();
         this.len = len;
         word = new Character[len];
         words = ReadFile(len);
@@ -24,10 +23,7 @@ public class GameMain {
             word[0] = '0';
         }
         else {
-            //System.out.println(words.size());
-            int c = rnd.nextInt(words.size());
-            //System.out.println(c);
-            word = words.get(c);
+            word = words.get(rnd.nextInt(words.size()));
             //for (Character character : word) {
             //    System.out.print(character);
             //}
@@ -35,14 +31,13 @@ public class GameMain {
     }
 
     public void NewWord() {
-        int c = rnd.nextInt(words.size());
-        word = words.get(c);
+        word = words.get(rnd.nextInt(words.size()));
     }
 
     public int[] ReturnWordData(Character[] inWord) {
         /*
          * Return values:
-         * 0 - Not match
+         * 0 - No match
          * 1 - In word
          * 2 - Match
          */
@@ -81,7 +76,7 @@ public class GameMain {
                 out.put(current, x);
             }
         }
-        System.out.println(out);
+        //System.out.println(out);
         return out;
     }
 
@@ -92,7 +87,7 @@ public class GameMain {
         //System.out.println(i);
         //System.out.println((Character)(char)(((int)inWord[0])+1));
 
-        //okay so this didn't work quite as intended cuz when I entered "wowow" as my guessed word while testing with the 5 letter word list, it would've wanted to get the int at 'x' from the HashMap. BUT X NEVER EXISTED. Solved by adding the word "xenon" to the word list
+        //okay so the line below didn't work quite as intended cuz when I entered "wowow" as my guessed word while testing with the 5 letter word list, it would've wanted to get the int at 'x' from the HashMap. BUT X NEVER EXISTED. Solved by adding the word "xenon" to the word list
         int b = (Character.compare(inWord[0], 'z') != 0)?alphabet.get((Character)(char)(((int)inWord[0])+1)):words.size();
         for (int x = i; x < b; x++) {
             exists = 1;
